@@ -1,6 +1,7 @@
 package de.yabue.bakacore.Configurations;
 
 import javafx.beans.property.*;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.configuration.ConfigurationException;
@@ -19,21 +20,33 @@ import java.util.HashMap;
 @Slf4j
 public class ObservableConfiguration {
 
+    @Getter
     private final URL CONFIG_PATH;
 
     private final PropertiesConfiguration PROPERTIES_CONFIGURATION;
 
     private final HashMap<String, Property> MAP;
 
+    @Getter
+    private SimpleBooleanProperty autoSaveProperty;
+
     /**
      * Konstruiert eine neue Konfigurierung anhand einer übergebenen Properties Datei.
      * @param pathToConfiguration Pfad zu einer Properties Datei.
+     * @param autoSave Wenn {@code true}, werden Änderungen an den Properties gespeichert.
      */
-    public ObservableConfiguration(@NonNull URL pathToConfiguration) throws ConfigurationException {
+    public ObservableConfiguration(@NonNull URL pathToConfiguration, @NonNull boolean autoSave) throws ConfigurationException {
         CONFIG_PATH = pathToConfiguration;
         PROPERTIES_CONFIGURATION = new PropertiesConfiguration(pathToConfiguration);
+        PROPERTIES_CONFIGURATION.setAutoSave(autoSave);
         MAP = new HashMap<String, Property>();
         log.debug("Konfiguration initialisiert...");
+        autoSaveProperty = new SimpleBooleanProperty(autoSave);
+        if(autoSave){
+            log.debug("Änderungen an der Konfiguration werden gespeichert.");
+        }else{
+            log.debug("Änderungen an der Konfiguration werden nicht gespeichert.");
+        }
     }
 
     /**
@@ -154,4 +167,6 @@ public class ObservableConfiguration {
         }
         return result;
     }
+
+
 }
