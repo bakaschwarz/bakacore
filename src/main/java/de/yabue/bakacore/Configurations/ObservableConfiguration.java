@@ -1,9 +1,6 @@
 package de.yabue.bakacore.Configurations;
 
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.configuration.ConfigurationException;
@@ -126,6 +123,33 @@ public class ObservableConfiguration {
             MAP.put(keyWord, result);
         }else{
             result = (SimpleIntegerProperty) MAP.get(keyWord);
+            log.debug("Wert für "+keyWord+" gefunden...");
+        }
+        return result;
+    }
+
+    /**
+     * Liefert zu einem übergebenen Schlüssel einen observierbaren Wert zurück. Wird keiner gefunden, so wird mit dem
+     * übergebenen Standardwert ein observierbarer Wert erstellt. Diese Methode fügt allerdings keine Werte und Schlüssel
+     * permanent in die Properties Datei ein.
+     * @param keyWord Der Schlüssel, zu dem ein observierbarer Wert gesucht werden soll.
+     * @param defaultValue Ein Wert der genutzt wird, wenn in der Konfigurierungsdatei kein passender Wert oder Schlüssel vorhanden ist.
+     * @return Eine Referenz auf einen observierbaren Wert aus der Properties Datei, oder auf den Standartwert.
+     */
+    public SimpleDoubleProperty getDoubleProperty(@NonNull final String keyWord, @NonNull Integer defaultValue){
+        SimpleDoubleProperty result;
+        if(MAP.get(keyWord) == null){
+            if(PROPERTIES_CONFIGURATION.getProperty(keyWord) != null){
+                result = new SimpleDoubleProperty((Integer) PROPERTIES_CONFIGURATION.getProperty(keyWord));
+                log.debug("Schlüssel ist nicht in der Map, füge "+keyWord+" hinzu...");
+            }else{
+                result = new SimpleDoubleProperty(defaultValue);
+                log.warn("Schlüssel ist nicht in der Map und der Schlüssel existiert nicht oder hat keinen Wert...");
+                log.info("Füge temporär einen Standartwert für "+keyWord+" ein...");
+            }
+            MAP.put(keyWord, result);
+        }else{
+            result = (SimpleDoubleProperty) MAP.get(keyWord);
             log.debug("Wert für "+keyWord+" gefunden...");
         }
         return result;
