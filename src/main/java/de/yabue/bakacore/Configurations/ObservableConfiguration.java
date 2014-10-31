@@ -200,5 +200,6 @@ public class ObservableConfiguration {
      */
     public void setAutoSaveProperty(final boolean autoSave){
         autoSaveProperty.setValue(autoSave);
+        log.debug("Speicherfunktion der Konfiguration wird auf "+Boolean.toString(autoSave)+" gesetzt...");
     }
 }
