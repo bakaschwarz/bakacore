@@ -98,7 +98,7 @@ public class ObservableConfiguration {
         SimpleIntegerProperty result;
         if(MAP.get(keyWord) == null){
             if(PROPERTIES_CONFIGURATION.getProperty(keyWord) != null){
-                result = new SimpleIntegerProperty((Integer) PROPERTIES_CONFIGURATION.getProperty(keyWord));
+                result = new SimpleIntegerProperty(Integer.parseInt((String) PROPERTIES_CONFIGURATION.getProperty(keyWord)));
                 log.debug("Schlüssel ist nicht in der Map, füge "+keyWord+" hinzu...");
             }else{
                 result = new SimpleIntegerProperty(defaultValue);
@@ -125,7 +125,7 @@ public class ObservableConfiguration {
         SimpleDoubleProperty result;
         if(MAP.get(keyWord) == null){
             if(PROPERTIES_CONFIGURATION.getProperty(keyWord) != null){
-                result = new SimpleDoubleProperty((Integer) PROPERTIES_CONFIGURATION.getProperty(keyWord));
+                result = new SimpleDoubleProperty(Double.parseDouble((String) PROPERTIES_CONFIGURATION.getProperty(keyWord)));
                 log.debug("Schlüssel ist nicht in der Map, füge "+keyWord+" hinzu...");
             }else{
                 result = new SimpleDoubleProperty(defaultValue);
