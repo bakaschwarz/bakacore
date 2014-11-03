@@ -25,6 +25,9 @@
         <module name="bakacore" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="bakacore" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
 
