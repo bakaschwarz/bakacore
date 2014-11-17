@@ -33,7 +33,7 @@ public abstract class FXCommand {
     }
 
     /**
-     * Konstruiert ein neues FXCommand, welches sowohl rückgängig gemacht, also auch wiederholt werden kann.
+     * Konstruiert ein neues FXCommand, welches sowohl rückgängig gemacht, als auch wiederholt werden kann.
      */
     public FXCommand(){
         this.undoable = true;
@@ -68,7 +68,6 @@ public abstract class FXCommand {
         }else{
             throw new IllegalUndoException("Das Kommando darf nicht rückgängig gemacht werden!");
         }
-        System.out.println(commandState);
     }
 
     /**
