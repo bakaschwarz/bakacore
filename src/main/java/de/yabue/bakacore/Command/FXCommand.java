@@ -68,6 +68,7 @@ public abstract class FXCommand {
         }else{
             throw new IllegalUndoException("Das Kommando darf nicht rückgängig gemacht werden!");
         }
+        System.out.println(commandState);
     }
 
     /**
