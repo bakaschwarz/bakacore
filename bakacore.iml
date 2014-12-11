@@ -23,6 +23,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.14.8" level="project" />
+    <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.14.8" level="project" />
     <orderEntry type="library" name="Maven: commons-configuration:commons-configuration:1.10" level="project" />
     <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.6" level="project" />
     <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.1.1" level="project" />
@@ -36,4 +37,3 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.yaml:snakeyaml:1.6" level="project" />
   </component>
 </module>
-
