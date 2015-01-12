@@ -6,7 +6,7 @@
 
     <groupId>de.yabue</groupId>
     <artifactId>bakacore</artifactId>
-    <version>1.0</version>
+    <version>1.3.1-1</version>
 
     <build>
         <plugins>
@@ -61,11 +61,6 @@
             <groupId>commons-configuration</groupId>
             <artifactId>commons-configuration</artifactId>
             <version>1.10</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.7</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>

@@ -3,7 +3,6 @@ package de.yabue.bakacore.Configurations;
 import javafx.beans.property.*;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
@@ -27,6 +26,9 @@ public class ObservableConfiguration {
     private final HashMap<String, Property> MAP;
 
     @Getter
+    private SimpleBooleanProperty printInfosProperty;
+
+    @Getter
     private SimpleBooleanProperty autoSaveProperty;
 
     /**
@@ -38,9 +40,10 @@ public class ObservableConfiguration {
         CONFIG_PATH = pathToConfiguration;
         PROPERTIES_CONFIGURATION = new PropertiesConfiguration(pathToConfiguration);
         PROPERTIES_CONFIGURATION.setAutoSave(autoSave);
-        MAP = new HashMap<String, Property>();
+        MAP = new HashMap<>();
         System.out.println("Konfiguration initialisiert...");
         autoSaveProperty = new SimpleBooleanProperty(autoSave);
+        printInfosProperty = new SimpleBooleanProperty(false);
         if(autoSave){
             System.out.println("Änderungen an der Konfiguration werden gespeichert.");
         }else{
@@ -54,7 +57,8 @@ public class ObservableConfiguration {
     public ObservableConfiguration(){
         CONFIG_PATH = null;
         PROPERTIES_CONFIGURATION = new PropertiesConfiguration();
-        MAP = new HashMap<String, Property>();
+        MAP = new HashMap<>();
+        printInfosProperty = new SimpleBooleanProperty(false);
         System.out.println("Eine leere Konfiguration wurde initialisiert...");
     }
 
@@ -71,16 +75,20 @@ public class ObservableConfiguration {
         if(MAP.get(keyWord) == null){
             if(PROPERTIES_CONFIGURATION.getProperty(keyWord) != null){
                 result = new SimpleStringProperty((String) PROPERTIES_CONFIGURATION.getProperty(keyWord));
-                System.out.println("Schlüssel ist nicht in der Map, füge "+keyWord+" hinzu...");
+                if (printInfosProperty.getValue())
+                    System.out.println("Schlüssel ist nicht in der Map, füge "+keyWord+" hinzu...");
             }else{
                 result = new SimpleStringProperty(defaultValue);
-                System.out.println("Schlüssel ist nicht in der Map und der Schlüssel existiert nicht oder hat keinen Wert...");
-                System.out.println("Füge temporär einen Standartwert für "+keyWord+" ein...");
+                if (printInfosProperty.getValue()) {
+                    System.out.println("Schlüssel ist nicht in der Map und der Schlüssel existiert nicht oder hat keinen Wert...");
+                    System.out.println("Füge temporär einen Standartwert für " + keyWord + " ein...");
+                }
             }
             MAP.put(keyWord, result);
         }else{
             result = (SimpleStringProperty) MAP.get(keyWord);
-            System.out.println("Wert für "+keyWord+" gefunden...");
+            if (printInfosProperty.getValue())
+                System.out.println("Wert für "+keyWord+" gefunden...");
         }
         return result;
     }
@@ -98,16 +106,20 @@ public class ObservableConfiguration {
         if(MAP.get(keyWord) == null){
             if(PROPERTIES_CONFIGURATION.getProperty(keyWord) != null){
                 result = new SimpleIntegerProperty(Integer.parseInt((String) PROPERTIES_CONFIGURATION.getProperty(keyWord)));
-                System.out.println("Schlüssel ist nicht in der Map, füge "+keyWord+" hinzu...");
+                if (printInfosProperty.getValue())
+                    System.out.println("Schlüssel ist nicht in der Map, füge "+keyWord+" hinzu...");
             }else{
                 result = new SimpleIntegerProperty(defaultValue);
-                System.out.println("Schlüssel ist nicht in der Map und der Schlüssel existiert nicht oder hat keinen Wert...");
-                System.out.println("Füge temporär einen Standartwert für "+keyWord+" ein...");
+                if (printInfosProperty.getValue()) {
+                    System.out.println("Schlüssel ist nicht in der Map und der Schlüssel existiert nicht oder hat keinen Wert...");
+                    System.out.println("Füge temporär einen Standartwert für " + keyWord + " ein...");
+                }
             }
             MAP.put(keyWord, result);
         }else{
             result = (SimpleIntegerProperty) MAP.get(keyWord);
-            System.out.println("Wert für "+keyWord+" gefunden...");
+            if (printInfosProperty.getValue())
+                System.out.println("Wert für "+keyWord+" gefunden...");
         }
         return result;
     }
@@ -125,16 +137,20 @@ public class ObservableConfiguration {
         if(MAP.get(keyWord) == null){
             if(PROPERTIES_CONFIGURATION.getProperty(keyWord) != null){
                 result = new SimpleDoubleProperty(Double.parseDouble((String) PROPERTIES_CONFIGURATION.getProperty(keyWord)));
-                System.out.println("Schlüssel ist nicht in der Map, füge "+keyWord+" hinzu...");
+                if (printInfosProperty.getValue())
+                    System.out.println("Schlüssel ist nicht in der Map, füge "+keyWord+" hinzu...");
             }else{
                 result = new SimpleDoubleProperty(defaultValue);
-                System.out.println("Schlüssel ist nicht in der Map und der Schlüssel existiert nicht oder hat keinen Wert...");
-                System.out.println("Füge temporär einen Standartwert für "+keyWord+" ein...");
+                if (printInfosProperty.getValue()) {
+                    System.out.println("Schlüssel ist nicht in der Map und der Schlüssel existiert nicht oder hat keinen Wert...");
+                    System.out.println("Füge temporär einen Standartwert für " + keyWord + " ein...");
+                }
             }
             MAP.put(keyWord, result);
         }else{
             result = (SimpleDoubleProperty) MAP.get(keyWord);
-            System.out.println("Wert für "+keyWord+" gefunden...");
+            if (printInfosProperty.getValue())
+                System.out.println("Wert für "+keyWord+" gefunden...");
         }
         return result;
     }
@@ -152,16 +168,20 @@ public class ObservableConfiguration {
         if(MAP.get(keyWord) == null){
             if(PROPERTIES_CONFIGURATION.getProperty(keyWord) != null){
                 result = new SimpleBooleanProperty(Boolean.parseBoolean((String) PROPERTIES_CONFIGURATION.getProperty(keyWord)));
-                System.out.println("Schlüssel ist nicht in der Map, füge "+keyWord+" hinzu...");
+                if (printInfosProperty.getValue())
+                    System.out.println("Schlüssel ist nicht in der Map, füge "+keyWord+" hinzu...");
             }else{
                 result = new SimpleBooleanProperty(defaultValue);
-                System.out.println("Schlüssel ist nicht in der Map und der Schlüssel existiert nicht oder hat keinen Wert...");
-                System.out.println("Füge temporär einen Standartwert für "+keyWord+" ein...");
+                if (printInfosProperty.getValue()) {
+                    System.out.println("Schlüssel ist nicht in der Map und der Schlüssel existiert nicht oder hat keinen Wert...");
+                    System.out.println("Füge temporär einen Standartwert für " + keyWord + " ein...");
+                }
             }
             MAP.put(keyWord, result);
         }else{
             result = (SimpleBooleanProperty) MAP.get(keyWord);
-            System.out.println("Wert für "+keyWord+" gefunden...");
+            if (printInfosProperty.getValue())
+                System.out.println("Wert für "+keyWord+" gefunden...");
         }
         return result;
     }
@@ -177,10 +197,12 @@ public class ObservableConfiguration {
         String result;
         if(PROPERTIES_CONFIGURATION.getString(keyWord) != null) {
             result = PROPERTIES_CONFIGURATION.getString(keyWord);
-            System.out.println("Wert für " + keyWord + " gefunden...");
+            if (printInfosProperty.getValue())
+                System.out.println("Wert für " + keyWord + " gefunden...");
         }else {
             result = defaultValue;
-            System.out.println("Kein Wert für "+keyWord+" gefunden...");
+            if (printInfosProperty.getValue())
+                System.out.println("Kein Wert für "+keyWord+" gefunden...");
         }
         return result;
     }
@@ -196,10 +218,12 @@ public class ObservableConfiguration {
         Integer result;
         if(PROPERTIES_CONFIGURATION.getString(keyWord) != null) {
             result = PROPERTIES_CONFIGURATION.getInt(keyWord);
-            System.out.println("Wert für " + keyWord + " gefunden...");
+            if (printInfosProperty.getValue())
+                System.out.println("Wert für " + keyWord + " gefunden...");
         }else {
             result = defaultValue;
-            System.out.println("Kein Wert für "+keyWord+" gefunden...");
+            if (printInfosProperty.getValue())
+                System.out.println("Kein Wert für "+keyWord+" gefunden...");
         }
         return result;
     }
@@ -215,10 +239,12 @@ public class ObservableConfiguration {
         Double result;
         if(PROPERTIES_CONFIGURATION.getString(keyWord) != null) {
             result = PROPERTIES_CONFIGURATION.getDouble(keyWord);
-            System.out.println("Wert für " + keyWord + " gefunden...");
+            if (printInfosProperty.getValue())
+                System.out.println("Wert für " + keyWord + " gefunden...");
         }else {
             result = defaultValue;
-            System.out.println("Kein Wert für "+keyWord+" gefunden...");
+            if (printInfosProperty.getValue())
+                System.out.println("Kein Wert für "+keyWord+" gefunden...");
         }
         return result;
     }
@@ -230,14 +256,16 @@ public class ObservableConfiguration {
      * @param defaultValue Der Ausweichwert, falls in der Properties Datei nichts gefunden wurde.
      * @return
      */
-    public Boolean getInteger(@NonNull final String keyWord, @NonNull Boolean defaultValue) {
+    public Boolean getBoolean(@NonNull final String keyWord, @NonNull Boolean defaultValue) {
         Boolean result;
         if(PROPERTIES_CONFIGURATION.getString(keyWord) != null) {
             result = PROPERTIES_CONFIGURATION.getBoolean(keyWord);
-            System.out.println("Wert für " + keyWord + " gefunden...");
+            if (printInfosProperty.getValue())
+                System.out.println("Wert für " + keyWord + " gefunden...");
         }else {
             result = defaultValue;
-            System.out.println("Kein Wert für "+keyWord+" gefunden...");
+            if (printInfosProperty.getValue())
+                System.out.println("Kein Wert für "+keyWord+" gefunden...");
         }
         return result;
     }
@@ -256,7 +284,8 @@ public class ObservableConfiguration {
             property = getStringProperty(keyWord, value);
         }
         PROPERTIES_CONFIGURATION.setProperty(keyWord, value);
-        System.out.println("Setze neuen Wert für "+keyWord+"...");
+        if (printInfosProperty.getValue())
+            System.out.println("Setze neuen Wert für "+keyWord+"...");
         return property;
     }
 
@@ -274,7 +303,8 @@ public class ObservableConfiguration {
             property = getIntegerProperty(keyWord, value);
         }
         PROPERTIES_CONFIGURATION.setProperty(keyWord, value);
-        System.out.println("Setze neuen Wert für "+keyWord+"...");
+        if (printInfosProperty.getValue())
+            System.out.println("Setze neuen Wert für "+keyWord+"...");
         return property;
     }
 
@@ -292,7 +322,8 @@ public class ObservableConfiguration {
             property = getDoubleProperty(keyWord, value);
         }
         PROPERTIES_CONFIGURATION.setProperty(keyWord, value);
-        System.out.println("Setze neuen Wert für "+keyWord+"...");
+        if (printInfosProperty.getValue())
+            System.out.println("Setze neuen Wert für "+keyWord+"...");
         return property;
     }
 
@@ -310,7 +341,8 @@ public class ObservableConfiguration {
             property = getBooleanProperty(keyWord, value);
         }
         PROPERTIES_CONFIGURATION.setProperty(keyWord, value);
-        System.out.println("Setze neuen Wert für "+keyWord+"...");
+        if (printInfosProperty.getValue())
+            System.out.println("Setze neuen Wert für "+keyWord+"...");
         return property;
     }
 
@@ -320,6 +352,15 @@ public class ObservableConfiguration {
      */
     public void setAutoSaveProperty(final boolean autoSave){
         autoSaveProperty.setValue(autoSave);
-        System.out.println("Speicherfunktion der Konfiguration wird auf "+Boolean.toString(autoSave)+" gesetzt...");
+        if (printInfosProperty.getValue())
+            System.out.println("Speicherfunktion der Konfiguration wird auf "+Boolean.toString(autoSave)+" gesetzt...");
+    }
+
+    /**
+     * Setzt das Encoding Format für die Konfiguration. Standard ist <code>System.getProperty("file.encoding")</code>
+     * @param encoding Das gewünschte Encoding Format
+     */
+    public void setEncoding(final String encoding) {
+        PROPERTIES_CONFIGURATION.setEncoding(encoding);
     }
 }
