@@ -6,6 +6,7 @@ import lombok.NonNull;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
+import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
 
@@ -19,7 +20,7 @@ import java.util.HashMap;
 public class ObservableConfiguration {
 
     @Getter
-    private final URL CONFIG_PATH;
+    private final File CONFIG;
 
     private final PropertiesConfiguration PROPERTIES_CONFIGURATION;
 
@@ -36,8 +37,8 @@ public class ObservableConfiguration {
      * @param pathToConfiguration Pfad zu einer Properties Datei.
      * @param autoSave Wenn {@code true}, werden Änderungen an den Properties gespeichert.
      */
-    public ObservableConfiguration(@NonNull URL pathToConfiguration, boolean autoSave) throws ConfigurationException {
-        CONFIG_PATH = pathToConfiguration;
+    public ObservableConfiguration(@NonNull File pathToConfiguration, boolean autoSave) throws ConfigurationException {
+        CONFIG = pathToConfiguration;
         PROPERTIES_CONFIGURATION = new PropertiesConfiguration(pathToConfiguration);
         PROPERTIES_CONFIGURATION.setAutoSave(autoSave);
         MAP = new HashMap<>();
@@ -55,7 +56,7 @@ public class ObservableConfiguration {
      * Konstruiert eine leere Konfiguration.
      */
     public ObservableConfiguration(){
-        CONFIG_PATH = null;
+        CONFIG = null;
         PROPERTIES_CONFIGURATION = new PropertiesConfiguration();
         MAP = new HashMap<>();
         printInfosProperty = new SimpleBooleanProperty(false);

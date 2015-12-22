@@ -8,6 +8,31 @@
     <artifactId>bakacore</artifactId>
     <version>1.3.1-1</version>
 
+    <profiles>
+        <profile>
+            <repositories>
+                <repository>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <id>bintray-bakaschwarz-maven</id>
+                    <name>bintray</name>
+                    <url>http://dl.bintray.com/bakaschwarz/maven</url>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <id>bintray-bakaschwarz-maven</id>
+                    <name>bintray-plugins</name>
+                    <url>http://dl.bintray.com/bakaschwarz/maven</url>
+                </pluginRepository>
+            </pluginRepositories>
+            <id>bintray</id>
+        </profile>
+    </profiles>
     <build>
         <plugins>
             <plugin>
@@ -69,5 +94,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 </project>
+
