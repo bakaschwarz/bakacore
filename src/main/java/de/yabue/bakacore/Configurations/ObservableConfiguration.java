@@ -7,7 +7,6 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
 import java.io.File;
-import java.net.URL;
 import java.util.HashMap;
 
 /**
@@ -42,13 +41,13 @@ public class ObservableConfiguration {
         PROPERTIES_CONFIGURATION = new PropertiesConfiguration(pathToConfiguration);
         PROPERTIES_CONFIGURATION.setAutoSave(autoSave);
         MAP = new HashMap<>();
-        System.out.println("Konfiguration initialisiert...");
+        System.out.println("Configuration initialized...");
         autoSaveProperty = new SimpleBooleanProperty(autoSave);
         printInfosProperty = new SimpleBooleanProperty(false);
         if(autoSave){
-            System.out.println("Änderungen an der Konfiguration werden gespeichert.");
+            System.out.println("Changes on the configuration will be automatically saved.");
         }else{
-            System.out.println("Änderungen an der Konfiguration werden nicht gespeichert.");
+            System.out.println("Changes on the configuration will not be saved.");
         }
     }
 
